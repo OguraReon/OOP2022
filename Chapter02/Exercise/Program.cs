@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Exercise {
     class Program {
@@ -15,18 +11,16 @@ namespace Exercise {
             };
 
             PrintSongs(songs);
-        
+
         }
         private static void PrintSongs(Song[] songs) {
 
-            
-            foreach (var song in songs) { 
+
+            foreach (var song in songs) {
                 Console.WriteLine("{0},{1},{2:m\\:ss}",
-                    song.Title,song.ArtistName,TimeSpan.FromSeconds(song.Length));
+                    song.Title, song.ArtistName, TimeSpan.FromSeconds(song.Length));
 
-             }
-            
-
+            }
         }
     }
 }
