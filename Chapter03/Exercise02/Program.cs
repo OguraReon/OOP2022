@@ -41,7 +41,7 @@ namespace Exercise02 {
             
         }
         private static void Exercise01_3(List<string> names) {
-            var name = names.Where(n => n.Contains("o")).ToList();
+            var name = names.Where(n => n.Contains("o")).ToArray();
             foreach (var n in name) {
                 Console.WriteLine(n);
             }
