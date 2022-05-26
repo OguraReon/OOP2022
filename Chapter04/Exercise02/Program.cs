@@ -1,9 +1,6 @@
 ﻿using Exercise01;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Exercise02 {
     class Program {
@@ -12,14 +9,11 @@ namespace Exercise02 {
             //4.2.1
             var ymCollection = new YearMonth[] {
                 new YearMonth(2001,12),
-                new YearMonth(2010,2),
-               new YearMonth(2002,4),
-               new YearMonth(2000,5),
-                new YearMonth(1933,5),
-
-
+                new YearMonth(2004,2),
+                new YearMonth(2002,4),
+                new YearMonth(2000,5),
+                new YearMonth(1900,5),
             };
-
 
             //4.2.2
             Exercise02_2(ymCollection);
@@ -66,7 +60,6 @@ namespace Exercise02 {
             }
             return null;
         }
-
         private static void Exercise02_4(YearMonth[] ymCollection) {
 
             var num = FindFirst21C(ymCollection);
@@ -77,12 +70,13 @@ namespace Exercise02 {
             }
         }
         private static void Exercise02_5(YearMonth[] ymCollection) {
-            var yearMonth = new List<YearMonth>();
+            /*var yearMonth = new List<YearMonth>();
             foreach (var y in ymCollection) {
                 y.AddOneMonth();
                 yearMonth.Add(y);
                 Console.WriteLine(y);
             }
+            */
             Console.WriteLine("------------");
 
             var array = ymCollection.Select(y => y.AddOneMonth()).ToArray();
@@ -90,13 +84,30 @@ namespace Exercise02 {
                 Console.WriteLine(a);
             }
         }
-
         private static void Exercise02_6(YearMonth[] ymCollection) {
-            ymCollection.OrderByDescending(y => y.Year);
-            foreach (var y in ymCollection) {
+            //(1)月で昇順
+            foreach (var y in ymCollection.OrderBy(y => y.Month)) {
                 Console.WriteLine(y);
             }
+            Console.WriteLine("---------------------");
 
+            //(2)偶数年のみ昇順
+            foreach (var y in ymCollection.Where(y => y.Year % 2 == 0).OrderBy(y => y.Year)) {
+                Console.WriteLine(y);
+            }
+            Console.WriteLine("---------------------");
+
+            //(3)うるう年のみ出力
+
+            foreach (var y in ymCollection.Where(y => DateTime.IsLeapYear(y.Year))) {
+                Console.WriteLine(y);
+            }
+            Console.WriteLine("--------------------");
+
+            //(4)すべての年から12月に一番近い月を出力
+
+            var date = ymCollection.Max(y => y.Month);
+            Console.WriteLine(date);
         }
     }
 }
