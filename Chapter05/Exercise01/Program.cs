@@ -12,9 +12,10 @@ namespace Exercise01 {
         private static int num1 = 0;
         private static int num2 = 0;
         private static string text = "Jackdaws love my big sphinx of quartz";
+        private  static string line = "Novelist=谷崎潤一郎;BestWork=春琴抄;Born=1886";
 
         static void Main(string[] args) {
-
+            
 
             Exercise3_1(text);
             Console.WriteLine("-----");
@@ -25,7 +26,7 @@ namespace Exercise01 {
             Exercise3_3(text);
             Console.WriteLine("-----");
 
-            Exercise3_4(text);
+            ToJapanese(line);
             Console.WriteLine("-----");
             Exercise3_5(text);
         }
@@ -49,18 +50,58 @@ namespace Exercise01 {
 
         private static void Exercise3_3(string text) {
             //5.1.3.1
-            var eng1 = text.Where(e => e.ToString().Contains(" ")).Count();
+            var eng1 = text.Count(e => e == ' ');
             Console.WriteLine(eng1);
+
+            Console.WriteLine("----------------");
 
             //5.1.3.2
             var eng2 = text.Replace("big", "small");
             Console.WriteLine(eng2);
 
+            Console.WriteLine("----------------");
+
             //5.1.3.3
-            
+            var eng3 = text.Split(' ').Length;
+            Console.WriteLine(eng3);
+
+            Console.WriteLine("----------------");
+
+            //5.1.3.4
+            var eng4 = text.Split(' ').Where(e => e.Length <= 4);
+            foreach (var e in eng4) {
+                Console.WriteLine(e);
+            }
+
+            Console.WriteLine("----------------");
+
+            //5.1.3.5
+            var eng5 = text.Split(' ').ToArray();
+            var sb = new StringBuilder();
+            foreach (var e in eng5) {
+                sb.Append(e);
+            }
+            var textBuilder = sb.ToString();
+            Console.WriteLine(textBuilder);
+
         }
 
-        private static void Exercise3_4(string text) {
+
+
+        private static string ToJapanese(string key) {
+            var nameNumber = line.Split(';').ToString().Split('=').ToArray();
+            
+
+            switch (key) {
+                case "Novelist":
+                    return "作家　";
+                case "BestWork":
+                    return "代表作";
+                case "Born":
+                    return "誕生年";
+            }
+            
+            throw new ArgumentException("引数keyは、正しい値ではありません");
             
         }
 
