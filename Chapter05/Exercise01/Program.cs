@@ -28,7 +28,7 @@ namespace Exercise01 {
 
             ToJapanese(line);
             Console.WriteLine("-----");
-            Exercise3_5(text);
+           
         }
 
         private static void Exercise3_1(string text) {
@@ -77,21 +77,23 @@ namespace Exercise01 {
 
             //5.1.3.5
             var eng5 = text.Split(' ').ToArray();
-            var sb = new StringBuilder();
-            foreach (var e in eng5) {
-                sb.Append(e);
+            if (eng5.Length > 0) {
+                var sb = new StringBuilder();           
+                foreach (var e in eng5.Skip(1)) {                   
+                    sb.Append(' ');
+                    sb.Append(e);
+                }
+                var textBuilder = sb.ToString();
+                Console.WriteLine(textBuilder);
             }
-            var textBuilder = sb.ToString();
-            Console.WriteLine(textBuilder);
-
         }
 
 
 
         private static string ToJapanese(string key) {
-            var nameNumber = line.Split(';').ToString().Split('=').ToArray();
-            
-
+            var nameNumber = line.Split(';').ToString().Split('=').ToList().Skip(1);
+           
+           
             switch (key) {
                 case "Novelist":
                     return "作家　";
@@ -100,13 +102,9 @@ namespace Exercise01 {
                 case "Born":
                     return "誕生年";
             }
-            
+            Console.WriteLine(key);
             throw new ArgumentException("引数keyは、正しい値ではありません");
             
-        }
-
-        private static void Exercise3_5(string text) {
-            
-        }
+        }        
     }
 }
