@@ -9,13 +9,11 @@ namespace Exercise01 {
         private static string str1 = Console.ReadLine();
         private static string str2 = Console.ReadLine();
         private static string strToNum = Console.ReadLine();
-        private static int num1 = 0;
-        
+        private static int num1 = 0;        
         private static string text = "Jackdaws love my big sphinx of quartz";
-        private  static string line = "Novelist=谷崎潤一郎;BestWork=春琴抄;Born=1886";
+        private static string line = "Novelist=谷崎潤一郎;BestWork=春琴抄;Born=1886";
 
-        static void Main(string[] args) {
-            
+        static void Main(string[] args) {            
 
             Exercise3_1(text);
             Console.WriteLine("-----");
@@ -26,17 +24,13 @@ namespace Exercise01 {
             Exercise3_3(text);
             Console.WriteLine("-----");
 
-
-
             foreach (var lines in line.Split(';')) 
                 {
                 var array = lines.Split('=');
                 Console.WriteLine("{0}:{1}", ToJapanese(array[0]), array[1]);
             }
-            Console.WriteLine("-----");
-           
+            Console.WriteLine("-----");           
         }
-
         private static void Exercise3_1(string text) {
             //5.1.1
             if (string.Compare(str1, str2, true) == 0) {
@@ -45,7 +39,6 @@ namespace Exercise01 {
                 Console.WriteLine("正しくない");
             }
         }
-
         private static void Exercise3_2(string text) {
             //5.1.2                       
             if (int.TryParse(strToNum, out num1)) {
@@ -53,7 +46,6 @@ namespace Exercise01 {
                 Console.WriteLine(string.Format("{0:N0}",num1));
             }
         }
-
         private static void Exercise3_3(string text) {
             //5.1.3.1
             var eng1 = text.Count(e => e == ' ');
@@ -93,9 +85,6 @@ namespace Exercise01 {
                 Console.WriteLine(textBuilder);
             }
         }
-
-
-
         private static string ToJapanese(string key) {                                  
             switch (key) {
                 case "Novelist":
