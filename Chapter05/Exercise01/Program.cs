@@ -10,7 +10,7 @@ namespace Exercise01 {
         private static string str2 = Console.ReadLine();
         private static string strToNum = Console.ReadLine();
         private static int num1 = 0;
-        private static int num2 = 0;
+        
         private static string text = "Jackdaws love my big sphinx of quartz";
         private  static string line = "Novelist=谷崎潤一郎;BestWork=春琴抄;Born=1886";
 
@@ -26,7 +26,13 @@ namespace Exercise01 {
             Exercise3_3(text);
             Console.WriteLine("-----");
 
-            ToJapanese(line);
+
+
+            foreach (var lines in line.Split(';')) 
+                {
+                var array = lines.Split('=');
+                Console.WriteLine("{0}:{1}", ToJapanese(array[0]), array[1]);
+            }
             Console.WriteLine("-----");
            
         }
@@ -90,10 +96,7 @@ namespace Exercise01 {
 
 
 
-        private static string ToJapanese(string key) {
-            var nameNumber = line.Split(';').ToString().Split('=').ToList().Skip(1);
-           
-           
+        private static string ToJapanese(string key) {                                  
             switch (key) {
                 case "Novelist":
                     return "作家　";
@@ -102,7 +105,6 @@ namespace Exercise01 {
                 case "Born":
                     return "誕生年";
             }
-            Console.WriteLine(key);
             throw new ArgumentException("引数keyは、正しい値ではありません");
             
         }        
