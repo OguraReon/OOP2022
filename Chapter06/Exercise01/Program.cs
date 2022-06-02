@@ -41,15 +41,26 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_3(int[] numbers) {
+            var numTostr = numbers.Select(num => num.ToString());
+            foreach (var item in numTostr) {
+                Console.WriteLine(item);
+            }
             
         }
 
         private static void Exercise1_4(int[] numbers) {
-            
+            //小さい順　先頭から三個抽出
+            foreach (var item in numbers.OrderBy(num => num).Take(3)) {
+                Console.WriteLine(item);
+            }
         }
 
         private static void Exercise1_5(int[] numbers) {
-            
+            //重複排除の後、１０より大きい数カウント
+            var disNum = numbers.Distinct().Count(n => n > 10);
+            foreach (var item in disNum.ToString()) {
+                Console.WriteLine(item);
+            }
         }
     }
 }
