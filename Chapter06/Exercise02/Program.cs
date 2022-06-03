@@ -96,17 +96,17 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_7(List<Book> books) {
-            var titleBook = books.Where(title => title.Title.Contains("C#") && title.Pages <= 500);
-                                 
+            var titleBook = books.Where(title => title.Title.Contains("C#") && title.Pages <= 500);                                
             foreach (var item in titleBook) {
                 Console.WriteLine(item.Title);
             }
         }
 
         private static void Exercise2_8(List<Book> books) {
-            var count = books;
+            foreach (var item in books.Select((b,index )=> new { index,b.Title})) {
+                Console.WriteLine( (item.index +1) + "冊目"+item.Title);              
+            }
         }
-
         class Book {
             public string Title { get; set; }
             public int Price { get; set; }
