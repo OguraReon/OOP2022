@@ -47,7 +47,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample0603", "FormAppSample
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample0610", "FormAppSample\Sample0610\Sample0610.csproj", "{58CB7F86-12BD-4CFF-8F9D-BF194DDAECDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdressBook", "FormAppSample\AdressBook\AdressBook.csproj", "{508EA5C3-967C-41CF-85D5-EED98A8B33D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressBook", "FormAppSample\AdressBook\AddressBook.csproj", "{508EA5C3-967C-41CF-85D5-EED98A8B33D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
