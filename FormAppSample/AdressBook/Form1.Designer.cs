@@ -117,10 +117,10 @@ namespace AdressBook {
             // tbMailAddress
             // 
             this.tbMailAddress.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.tbMailAddress.Location = new System.Drawing.Point(231, 93);
+            this.tbMailAddress.Location = new System.Drawing.Point(231, 94);
             this.tbMailAddress.Multiline = true;
             this.tbMailAddress.Name = "tbMailAddress";
-            this.tbMailAddress.Size = new System.Drawing.Size(364, 29);
+            this.tbMailAddress.Size = new System.Drawing.Size(365, 35);
             this.tbMailAddress.TabIndex = 2;
             // 
             // tbAddress
@@ -214,6 +214,7 @@ namespace AdressBook {
             this.btPictureOpen.TabIndex = 6;
             this.btPictureOpen.Text = "開く...";
             this.btPictureOpen.UseVisualStyleBackColor = true;
+            this.btPictureOpen.Click += new System.EventHandler(this.btPictureOpen_Click);
             // 
             // btPictureClear
             // 
@@ -224,10 +225,11 @@ namespace AdressBook {
             this.btPictureClear.TabIndex = 6;
             this.btPictureClear.Text = "クリア";
             this.btPictureClear.UseVisualStyleBackColor = true;
+            this.btPictureClear.Click += new System.EventHandler(this.btPictureClear_Click);
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileName = "ofdFileOpenDialog";
             // 
             // Form1
             // 
@@ -253,7 +255,7 @@ namespace AdressBook {
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "住所登録アプリ";
             ((System.ComponentModel.ISupportInitialize)(this.dgvPersons)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPicture)).EndInit();
             this.ResumeLayout(false);
