@@ -15,15 +15,20 @@ namespace Sample0603 {
         }
 
         private void button1_Click(object sender, EventArgs e) {
-            var intNum1 = int.Parse(tbNum1.Text);
-            var intNum2  =int.Parse(tbNum2.Text);
-             //var anser = intNum1 + intNum2;
-            var anserWaru = intNum1 / intNum2;
-            tbAns.Text =  anserWaru.ToString();
-
-            nubAns.Value = nudNum1.Value + nudNum2.Value;
 
 
+
+
+        }
+
+        private void btRandom_Click(object sender, EventArgs e) {
+            Random rand = new Random();
+            //①１から６の数字
+            //Number.Value = rand.Next(minValue:1,maxValue:7);
+
+            //②
+           Number.Value = rand.Next(
+                    minValue: (int)Min.Value, maxValue:(int)Max.Value) ;
 
         }
     }
