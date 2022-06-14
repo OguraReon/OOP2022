@@ -7,10 +7,10 @@ namespace Test01 {
 
         // コンストラクタ
         public ScoreCounter(string filePath) {
+            _score = ReadScore(filePath);
 
 
 
-            
         }
 
 
