@@ -11,12 +11,17 @@ using System.Windows.Forms;
 namespace AdressBook {
     public partial class Form1 : Form {
         BindingList<Peason> listPerson = new BindingList<Peason>();
+        
         public Form1() {
             InitializeComponent();
             dgvPersons.DataSource = listPerson;
+           // btDelete.Enabled = false;
+            //btUpDate.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e) {
+           
+
             Peason newPeason = new Peason {
                 Name = tbName.Text,
                 MailAddress = tbMailAddress.Text, 
@@ -26,7 +31,10 @@ namespace AdressBook {
                 listGroup = GetCheckBoxGroup(),
             };
             listPerson.Add(newPeason);
-            
+            if (listPerson.Count() >= 1) btDelete.Enabled = true;
+            if (listPerson.Count() >= 1) btUpDate.Enabled = true;
+
+
         }
 
         private void btPictureOpen_Click(object sender, EventArgs e) {
@@ -61,9 +69,13 @@ namespace AdressBook {
             pbPicture.Image = null;
         }
 
-        private void dgvPersons_Click(object sender, EventArgs e) {
+        private  void dgvPersons_Click(object sender, EventArgs e) {
+
             //データグリッドビューをクリックした時のイベントハンドラ
-            int iRow = dgvPersons.CurrentCell.RowIndex;
+            int iRow = dgvPersons.CurrentRow.Index;
+            if (tbName.Text == null) return;
+            if (dgvPersons.CurrentRow == null) return;
+
             tbName.Text = listPerson[iRow].Name;
             tbAddress.Text = listPerson[iRow].Adress;
             tbMailAddress.Text = listPerson[iRow].MailAddress;
@@ -73,10 +85,8 @@ namespace AdressBook {
             CheckBoxAllClear();
 
             foreach (var grop in listPerson[iRow].listGroup) {
-
                 switch (grop) {
                     case Peason.Grouptype.家族:
-
                         cbFamily.Checked = true;
                         break;
                     case Peason.Grouptype.友人:
@@ -95,8 +105,31 @@ namespace AdressBook {
 
         }
 
-        private void CheckBoxAllClear() {
+        //グループのチェックボックスをオールクリア
+        private  void CheckBoxAllClear() {
             cbFamily.Checked = cbFriend.Checked = cbWork.Checked = cbOther.Checked = false;
+        }
+
+        //更新ボタンが押された時の処理
+        private void btUpDate_Click(object sender, EventArgs e) {
+            
+
+            int iRow = dgvPersons.CurrentRow.Index;
+            listPerson[iRow].Name = tbName.Text;
+            listPerson[iRow].Adress = tbAddress.Text;
+            listPerson[iRow].MailAddress = tbMailAddress.Text;
+            listPerson[iRow].Company = tbCompany.Text;
+            listPerson[iRow].listGroup = GetCheckBoxGroup();
+            listPerson[iRow].Picture = pbPicture.Image;
+            dgvPersons.Refresh();
+            if (listPerson.Count() == 0) btUpDate.Enabled = false;
+
+        }
+        private void btDelete_Click(object sender, EventArgs e) {
+            
+            int iRow = dgvPersons.CurrentRow.Index;
+            listPerson.RemoveAt(iRow);
+            if (listPerson.Count() == 0) btDelete.Enabled = false;
         }
     }
 }
