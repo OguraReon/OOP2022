@@ -15,28 +15,46 @@ namespace AdressBook {
         public Form1() {
             InitializeComponent();
             dgvPersons.DataSource = listPerson;
-           // btDelete.Enabled = false;
-            //btUpDate.Enabled = false;
+           //btDelete.Enabled = false;
+           //btUpDate.Enabled = false;
         }
 
+        //追加ボタンを押された時の処理
         private void button1_Click(object sender, EventArgs e) {
-           
+            if (listPerson.Count() >= 0) btDelete.Enabled = true;
+            if (listPerson.Count() >= 0) btUpDate.Enabled = true;
+
+            /*先生の解答
+            if (string.IsNullOrWhiteSpace(tbName.Text)) {
+                btDelete.Enabled = true;
+                btUpDate.Enabled = true;
+            };
+            */
 
             Peason newPeason = new Peason {
                 Name = tbName.Text,
-                MailAddress = tbMailAddress.Text, 
+                MailAddress = tbMailAddress.Text,
                 Adress = tbAddress.Text,
-                Company = tbCompany.Text,
+                Company = cbCompany.Text,
                 Picture = pbPicture.Image,
                 listGroup = GetCheckBoxGroup(),
             };
             listPerson.Add(newPeason);
-            if (listPerson.Count() >= 1) btDelete.Enabled = true;
-            if (listPerson.Count() >= 1) btUpDate.Enabled = true;
 
+            //コンボボックスに会社名を登録（重複なし）
 
+            if (cbCompany.FindStringExact(cbCompany.Text) == -1) {
+                cbCompany.Items.Add(cbCompany.Text);
+            }
+
+            /*先生の解答
+            if (!cbCompany.Items.Contains(cbCompany.Text)) {
+                cbCompany.Items.Add(cbCompany.Text);
+            }
+            */
+           
         }
-
+        //開くボタンの処理
         private void btPictureOpen_Click(object sender, EventArgs e) {
             if (openFileDialog1.ShowDialog()== DialogResult.OK) {
                 pbPicture.Image = Image.FromFile( openFileDialog1.FileName);
@@ -65,13 +83,15 @@ namespace AdressBook {
             return listGroup;
         }
 
+        //クリアボタンを押された時の処理
         private void btPictureClear_Click(object sender, EventArgs e) {
             pbPicture.Image = null;
         }
 
-        private  void dgvPersons_Click(object sender, EventArgs e) {
+        //データグリッドビューをクリックした時のイベントハンドラ
+        private void dgvPersons_Click(object sender, EventArgs e) {
 
-            //データグリッドビューをクリックした時のイベントハンドラ
+            
             int iRow = dgvPersons.CurrentRow.Index;
             if (tbName.Text == null) return;
             if (dgvPersons.CurrentRow == null) return;
@@ -79,7 +99,7 @@ namespace AdressBook {
             tbName.Text = listPerson[iRow].Name;
             tbAddress.Text = listPerson[iRow].Adress;
             tbMailAddress.Text = listPerson[iRow].MailAddress;
-            tbCompany.Text = listPerson[iRow].Company;
+            cbCompany.Text = listPerson[iRow].Company;
             pbPicture.Image = listPerson[iRow].Picture;
 
             CheckBoxAllClear();
@@ -118,18 +138,27 @@ namespace AdressBook {
             listPerson[iRow].Name = tbName.Text;
             listPerson[iRow].Adress = tbAddress.Text;
             listPerson[iRow].MailAddress = tbMailAddress.Text;
-            listPerson[iRow].Company = tbCompany.Text;
+            listPerson[iRow].Company = cbCompany.Text;
             listPerson[iRow].listGroup = GetCheckBoxGroup();
             listPerson[iRow].Picture = pbPicture.Image;
             dgvPersons.Refresh();
-            if (listPerson.Count() == 0) btUpDate.Enabled = false;
+            
 
         }
+
+        //削除ボタンが押された時の処理
         private void btDelete_Click(object sender, EventArgs e) {
             
             int iRow = dgvPersons.CurrentRow.Index;
             listPerson.RemoveAt(iRow);
             if (listPerson.Count() == 0) btDelete.Enabled = false;
+        }
+
+
+        private void dddd_SelectedIndexChanged(object sender, EventArgs e) {
+            if (cbCompany.Text!= "") {
+                
+            }
         }
     }
 }
