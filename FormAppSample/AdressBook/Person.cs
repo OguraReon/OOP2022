@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace AdressBook {
-    public class Peason{
+    [Serializable]
+    public class Person{
         [System.ComponentModel.DisplayName("名前")]
         public string Name { get; set; }
         [System.ComponentModel.DisplayName("メールアドレス")]
@@ -17,6 +18,7 @@ namespace AdressBook {
         public string Company { get; set; }
         [System.ComponentModel.DisplayName("画像")]
         public List<Grouptype>listGroup { get; set; }
+
         public Image Picture { get; set; }
         public enum Grouptype {
             家族,

@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AdressBook {
     public partial class Form1 : Form {
-        BindingList<Peason> listPerson = new BindingList<Peason>();
+        BindingList<Person> listPerson = new BindingList<Person>();
         
         public Form1() {
             InitializeComponent();
@@ -31,7 +33,7 @@ namespace AdressBook {
             };
             */
 
-            Peason newPeason = new Peason {
+            Person newPeason = new Person {
                 Name = tbName.Text,
                 MailAddress = tbMailAddress.Text,
                 Adress = tbAddress.Text,
@@ -41,20 +43,26 @@ namespace AdressBook {
             };
             listPerson.Add(newPeason);
 
-            //コンボボックスに会社名を登録（重複なし）
+            
 
-            if (cbCompany.FindStringExact(cbCompany.Text) == -1) {
-                cbCompany.Items.Add(cbCompany.Text);
-            }
+            setCbCompany(cbCompany.Text);
 
             /*先生の解答
             if (!cbCompany.Items.Contains(cbCompany.Text)) {
                 cbCompany.Items.Add(cbCompany.Text);
             }
             */
-           
+
         }
-        //開くボタンの処理
+        //コンボボックスに会社名を登録（重複なし）
+        private void setCbCompany(string company) {
+            if (cbCompany.FindStringExact(company) == -1) {
+                cbCompany.Items.Add(cbCompany.Text);
+            }
+        }
+
+
+        //開く...ボタンの処理
         private void btPictureOpen_Click(object sender, EventArgs e) {
             if (openFileDialog1.ShowDialog()== DialogResult.OK) {
                 pbPicture.Image = Image.FromFile( openFileDialog1.FileName);
@@ -62,31 +70,34 @@ namespace AdressBook {
             
         }
 
+
         //チェックボックスにセットされている値をリストとして取り出す
-        private List<Peason.Grouptype> GetCheckBoxGroup() {
-            var listGroup = new List<Peason.Grouptype>();
+        private List<Person.Grouptype> GetCheckBoxGroup() {
+            var listGroup = new List<Person.Grouptype>();
 
             if (cbFamily.Checked ) {
-                listGroup.Add(Peason.Grouptype.家族);
+                listGroup.Add(Person.Grouptype.家族);
             }
             if (cbFriend.Checked) {
-                listGroup.Add(Peason.Grouptype.友人);
+                listGroup.Add(Person.Grouptype.友人);
             }
             if (cbWork.Checked) {
-                listGroup.Add(Peason.Grouptype.仕事);
+                listGroup.Add(Person.Grouptype.仕事);
             }
             if (cbOther.Checked) {
-                listGroup.Add(Peason.Grouptype.その他);
+                listGroup.Add(Person.Grouptype.その他);
             }
 
 
             return listGroup;
         }
 
+
         //クリアボタンを押された時の処理
         private void btPictureClear_Click(object sender, EventArgs e) {
             pbPicture.Image = null;
         }
+
 
         //データグリッドビューをクリックした時のイベントハンドラ
         private void dgvPersons_Click(object sender, EventArgs e) {
@@ -106,16 +117,16 @@ namespace AdressBook {
 
             foreach (var grop in listPerson[iRow].listGroup) {
                 switch (grop) {
-                    case Peason.Grouptype.家族:
+                    case Person.Grouptype.家族:
                         cbFamily.Checked = true;
                         break;
-                    case Peason.Grouptype.友人:
+                    case Person.Grouptype.友人:
                         cbFriend.Checked = true;
                         break;
-                    case Peason.Grouptype.仕事:
+                    case Person.Grouptype.仕事:
                         cbWork.Checked = true;
                         break;
-                    case Peason.Grouptype.その他:
+                    case Person.Grouptype.その他:
                         cbOther.Checked = true;
                         break;
                     default:
@@ -125,10 +136,12 @@ namespace AdressBook {
 
         }
 
+
         //グループのチェックボックスをオールクリア
         private  void CheckBoxAllClear() {
             cbFamily.Checked = cbFriend.Checked = cbWork.Checked = cbOther.Checked = false;
         }
+
 
         //更新ボタンが押された時の処理
         private void btUpDate_Click(object sender, EventArgs e) {
@@ -146,6 +159,7 @@ namespace AdressBook {
 
         }
 
+
         //削除ボタンが押された時の処理
         private void btDelete_Click(object sender, EventArgs e) {
             
@@ -155,9 +169,49 @@ namespace AdressBook {
         }
 
 
-        private void dddd_SelectedIndexChanged(object sender, EventArgs e) {
-            if (cbCompany.Text!= "") {
-                
+        //保存ボタンのイベントハンドラ
+        private void btSave_Click(object sender, EventArgs e) {
+           
+            if (sfdSaveDialog.ShowDialog() == DialogResult.OK) {
+                try {
+                    //バイナリー形式でシリアル化
+                    var bf = new BinaryFormatter();
+
+                    using (FileStream fs = File.Open(sfdSaveDialog.FileName,
+                                                        FileMode.Create)) {
+                        bf.Serialize(fs, listPerson);
+                    }
+
+                } catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+                    
+                }
+            }
+
+        }
+
+        //開くボタンが押された時の処理
+        private void btOpen_Click(object sender, EventArgs e) {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK) {
+                try {
+                    //バイナリーで逆シリアル化
+                    var bf = new BinaryFormatter();
+                    using (FileStream fs = File.Open(openFileDialog1.FileName,
+                                                FileMode.Open,FileAccess.Read)) {
+
+                        //逆シリアル化して読み込む
+                         listPerson =  (BindingList<Person>) bf.Deserialize(fs);
+                        dgvPersons.DataSource = null;
+                        dgvPersons.DataSource = listPerson;
+                    }
+
+                } catch (Exception ex) {
+
+                    MessageBox.Show(ex.Message);
+                }
+                foreach (var item in listPerson.Select(p=> p.Company)) {
+                    setCbCompany(item); //存在する会社を登録
+                }
             }
         }
     }
