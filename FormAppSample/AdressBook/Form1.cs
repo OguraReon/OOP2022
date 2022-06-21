@@ -31,18 +31,17 @@ namespace AdressBook {
                 Company = cbCompany.Text,
                 Picture = pbPicture.Image,
                 listGroup = GetCheckBoxGroup(),
+                Registration = dateTimePicker1.Value,
             };
             listPerson.Add(newPeason);
             setCbCompany(cbCompany.Text);
-            maskJudge();
-           
+            textEmpty();
+            maskJudge();        
 
         }
         //テキストを空白にする処理
         private void textEmpty() {
-            tbName.Text = tbAddress.Text = tbMailAddress.Text = cbCompany.Text = "";
-            
-            
+            tbName.Text = tbAddress.Text = tbMailAddress.Text = cbCompany.Text = "";                      
         }
 
         //更新・削除ボタンのマスク処理

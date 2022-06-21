@@ -16,9 +16,10 @@ namespace AdressBook {
         public string Adress { get; set; }
         [System.ComponentModel.DisplayName("会社")]
         public string Company { get; set; }
-        [System.ComponentModel.DisplayName("画像")]
         public List<Grouptype>listGroup { get; set; }
-
+        [System.ComponentModel.DisplayName("登録日")]
+        public DateTime Registration { get; set; }
+        [System.ComponentModel.DisplayName("画像")]
         public Image Picture { get; set; }
         public enum Grouptype {
             家族,
