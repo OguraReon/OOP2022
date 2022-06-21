@@ -24,15 +24,6 @@ namespace AdressBook {
         //追加ボタンを押された時の処理
         private void button1_Click(object sender, EventArgs e) {
 
-            maskJudge(); //マスク処理呼び出し
-
-            /*先生の解答
-            if (string.IsNullOrWhiteSpace(tbName.Text)) {
-                btDelete.Enabled = true;
-                btUpDate.Enabled = true;
-            };
-            */
-
             Person newPeason = new Person {
                 Name = tbName.Text,
                 MailAddress = tbMailAddress.Text,
@@ -43,7 +34,15 @@ namespace AdressBook {
             };
             listPerson.Add(newPeason);
             setCbCompany(cbCompany.Text);
-            maskJudge();           
+            maskJudge();
+           
+
+        }
+        //テキストを空白にする処理
+        private void textEmpty() {
+            tbName.Text = tbAddress.Text = tbMailAddress.Text = cbCompany.Text = "";
+            
+            
         }
 
         //更新・削除ボタンのマスク処理
@@ -56,6 +55,7 @@ namespace AdressBook {
             if (cbCompany.FindStringExact(company) == -1) {
                 cbCompany.Items.Add(company);
             }
+
             /*先生の解答
             if (!cbCompany.Items.Contains(cbCompany.Text)) {
                 cbCompany.Items.Add(cbCompany.Text);
@@ -208,14 +208,18 @@ namespace AdressBook {
                     MessageBox.Show(ex.Message);
                 }
                 maskJudge();
+                //コンボボックスへ登録
                 foreach (var item in listPerson.Select(p=> p.Company)) {
                     setCbCompany(item); //存在する会社を登録
                 }
+                cbCompany.Items.Clear();
+
             }
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-
+            //マスク処理呼び出し
+            maskJudge();
         }
     }
 }
