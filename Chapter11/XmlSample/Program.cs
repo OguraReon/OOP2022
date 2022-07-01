@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
+using System.Xml.Linq;
 
-namespace XmlSample
-{
+namespace XmlSample {
     class Program
     {
         static void Main(string[] args)

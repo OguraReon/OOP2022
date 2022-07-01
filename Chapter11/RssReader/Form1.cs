@@ -9,29 +9,43 @@ using System.Xml.Linq;
 namespace RssReader {
     public partial class Form1 : Form {
         IEnumerable<string> xTitle;
+        IEnumerable<string> xLink;
         public Form1() {
             InitializeComponent();
         }
-
+        
         private void btRssGet_Click(object sender, EventArgs e) {
+             
             using (var wc = new WebClient()) {
                 var stream = wc.OpenRead(cbRssUrl.Text);
-
                 var xdoc = XDocument.Load(stream);
                 xTitle = xdoc.Root.Descendants("item").Select(x => (string)x.Element("title"));
+                xLink = xdoc.Root.Descendants("item").Select(x => (string)x.Element("link"));
 
                 foreach (var data in xTitle) {
                     lbRssTitle1.Items.Add(data);
 
                 }
-
-
             }
         }
 
         private void lbRssTitle1_SelectedIndexChanged(object sender, EventArgs e) {
             int urlIndex = lbRssTitle1.SelectedIndex;
+            var url = xLink.ElementAt(urlIndex);
+            wvBrowser.Source = new Uri(url);
+        }
 
+        private void btBack_Click(object sender, EventArgs e) {
+            wvBrowser.GoBack();
+        }
+
+        private void btForward_Click(object sender, EventArgs e) {
+            wvBrowser.GoForward();
+        }
+
+        private void Form1_Load(object sender, EventArgs e) {
+            btBack.Enabled = wvBrowser.CanGoBack;
+            btForward.Enabled = wvBrowser.CanGoForward;
         }
     }
 }
