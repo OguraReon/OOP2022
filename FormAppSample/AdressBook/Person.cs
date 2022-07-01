@@ -19,6 +19,20 @@ namespace AdressBook {
         public List<Grouptype>listGroup { get; set; }
         [System.ComponentModel.DisplayName("登録日")]
         public DateTime Registration { get; set; }
+        [System.ComponentModel.DisplayName("グループ")]
+        public string Grop {
+            get {
+                string groups = "";
+                foreach (Grouptype group in listGroup) {
+                    groups += "[" + group + "]";
+                }
+                return groups;
+            }
+        }
+        [System.ComponentModel.DisplayName("電話番号")]
+        public KindNumberType kindNumber { get; set; }
+        [System.ComponentModel.DisplayName("電話番号")]
+        public string TellNumber { get; set; }
         [System.ComponentModel.DisplayName("画像")]
         public Image Picture { get; set; }
         public enum Grouptype {
@@ -27,6 +41,10 @@ namespace AdressBook {
             仕事,
             その他,
         }
-
+        public enum KindNumberType {
+            自宅,
+            携帯,
+            その他,
+        }
     }
 }

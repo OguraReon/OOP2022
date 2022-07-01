@@ -32,6 +32,8 @@ namespace AdressBook {
                 Picture = pbPicture.Image,
                 listGroup = GetCheckBoxGroup(),
                 Registration = dateTimePicker1.Value,
+                TellNumber = tbPhoneNum.Text,
+                kindNumber = GetKindNumberTypes(),
             };
             listPerson.Add(newPeason);
             setCbCompany(cbCompany.Text);
@@ -91,6 +93,20 @@ namespace AdressBook {
             return listGroup;
         }
 
+        //ラジオボックスにセットされている値をリストとして取り出す
+        private Person.KindNumberType GetKindNumberTypes() {
+            var listGroup = Person.KindNumberType.その他;
+
+            if (rbHome1.Checked) {
+                listGroup = Person.KindNumberType.自宅;
+            }
+            if (rbPhone.Checked) {
+                listGroup  =Person.KindNumberType.携帯;
+            }
+            return listGroup;
+            
+        }
+
 
         //クリアボタンを押された時の処理
         private void btPictureClear_Click(object sender, EventArgs e) {
@@ -110,6 +126,7 @@ namespace AdressBook {
             tbMailAddress.Text = listPerson[iRow].MailAddress;
             cbCompany.Text = listPerson[iRow].Company;
             pbPicture.Image = listPerson[iRow].Picture;
+           // dateTimePicker1.Value = listPerson[iRow].Registration >1900 ? 
 
             CheckBoxAllClear();
 
@@ -151,15 +168,17 @@ namespace AdressBook {
             listPerson[iRow].Company = cbCompany.Text;
             listPerson[iRow].listGroup = GetCheckBoxGroup();
             listPerson[iRow].Picture = pbPicture.Image;
+            listPerson[iRow].Registration = dateTimePicker1.Value;
+
             dgvPersons.Refresh();
             maskJudge();
         }
 
 
         //削除ボタンが押された時の処理
-        private void btDelete_Click(object sender, EventArgs e) {
-            
+        private void btDelete_Click(object sender, EventArgs e) {           
             int iRow = dgvPersons.CurrentRow.Index;
+
             listPerson.RemoveAt(iRow);
             maskJudge();
         }
@@ -207,6 +226,7 @@ namespace AdressBook {
                     MessageBox.Show(ex.Message);
                 }
                 maskJudge();
+                cbCompany.Items.Clear();
                 //コンボボックスへ登録
                 foreach (var item in listPerson.Select(p=> p.Company)) {
                     setCbCompany(item); //存在する会社を登録
