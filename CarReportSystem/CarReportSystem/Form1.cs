@@ -9,9 +9,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace CarReportSystem {
     public partial class Form1 : Form {
+        //設定情報オブジェクト
+        Settings setting = new Settings();
         BindingList<CarReport> listCarReport = new BindingList<CarReport>();
 
         public Form1() {
@@ -21,7 +25,13 @@ namespace CarReportSystem {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-         
+            //設定ファイルを逆シリアル化して拝啓の色を設定
+           // using (var reader = XmlReader.Create("settings.xml")) {
+           //     var serializer = new XmlSerializer(typeof(Settings));
+           //     var color = serializer.Deserialize(reader) as Settings;
+                
+           // }
+
             maskJudge();
         }
 
@@ -111,7 +121,7 @@ namespace CarReportSystem {
                         rbToyota.Checked = true;
                         break;
                     case CarReport.MakerGroup.日産:
-                       rbNissan.Checked = true;
+                        rbNissan.Checked = true;
                         break;
                     case CarReport.MakerGroup.外国車:
                         rbGaikokusya.Checked = true;
@@ -225,6 +235,25 @@ namespace CarReportSystem {
             
             dataGridView1.Refresh();
             maskJudge();
+        }      
+        
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+            //設定ファイルをシリアル化
+            using (var writer = XmlWriter.Create("settings.xml")) {
+                var serializer = new XmlSerializer(setting.GetType()); 
+                serializer.Serialize(writer, setting);
+            }
+
+        }
+
+        //色設定ダイアログの表示
+        private void 色の設定ToolStripMenuItem_Click(object sender, EventArgs e) {
+            
+            if (colorDialogSelect.ShowDialog() == DialogResult.OK) {
+                setting.MainFormColor = colorDialogSelect.Color;
+
+            }
         }
     }
 }

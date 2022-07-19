@@ -59,6 +59,7 @@ namespace CarReportSystem {
             this.開くToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.終了ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorDialogSelect = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -374,6 +375,7 @@ namespace CarReportSystem {
             this.色の設定ToolStripMenuItem.Name = "色の設定ToolStripMenuItem";
             this.色の設定ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.色の設定ToolStripMenuItem.Text = "色の設定";
+            this.色の設定ToolStripMenuItem.Click += new System.EventHandler(this.色の設定ToolStripMenuItem_Click);
             // 
             // 開くToolStripMenuItem
             // 
@@ -433,6 +435,7 @@ namespace CarReportSystem {
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "試乗レポート管理システム";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
@@ -480,6 +483,7 @@ namespace CarReportSystem {
         private System.Windows.Forms.ToolStripMenuItem 開くToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 保存ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 終了ToolStripMenuItem;
+        private System.Windows.Forms.ColorDialog colorDialogSelect;
     }
 }
 
