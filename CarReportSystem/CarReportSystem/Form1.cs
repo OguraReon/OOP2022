@@ -6,8 +6,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -26,12 +24,12 @@ namespace CarReportSystem {
 
         private void Form1_Load(object sender, EventArgs e) {
             //設定ファイルを逆シリアル化して拝啓の色を設定
-           // using (var reader = XmlReader.Create("settings.xml")) {
-           //     var serializer = new XmlSerializer(typeof(Settings));
-           //     var color = serializer.Deserialize(reader) as Settings;
-                
-           // }
+            using (var reader = XmlReader.Create("settings.xml")) {
+                var serializer = new XmlSerializer(typeof(Settings));
+                var setting = serializer.Deserialize(reader) as Settings;
 
+                BackColor = Color.FromArgb(setting.MainFormColor);
+            }
             maskJudge();
         }
 
@@ -62,11 +60,11 @@ namespace CarReportSystem {
             if (cbAuthor.FindStringExact(name) == -1) {
                 cbAuthor.Items.Add(name);
             }
-        }       
+        }
 
         //マスク
         private void maskJudge() {
-            buttonDelete.Enabled = buttonCorrect.Enabled = 
+            buttonDelete.Enabled = buttonCorrect.Enabled =
             buttonPicDelete.Enabled = buttunSave.Enabled = listCarReport.Count() > 0 ? true : false;
         }
 
@@ -76,7 +74,7 @@ namespace CarReportSystem {
         }
 
         //メーカーの選択
-        private  List<CarReport.MakerGroup> GetCheckBoxGroup() {
+        private List<CarReport.MakerGroup> GetCheckBoxGroup() {
             var listGroup = new List<CarReport.MakerGroup>();
 
             if (rbToyota.Checked) {
@@ -106,8 +104,9 @@ namespace CarReportSystem {
 
         //データグリッドビュー
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {
-            int iRow = dataGridView1.CurrentRow.Index;       
-            if (dataGridView1.CurrentRow == null) return;
+            int iRow = dataGridView1.CurrentRow.Index;
+            if (dataGridView1.CurrentRow == null)
+                return;
             cbCarName.Text = listCarReport[iRow].CarName;
             cbAuthor.Text = listCarReport[iRow].Auther;
             dateTimePicker.Value = listCarReport[iRow].Date;
@@ -168,7 +167,7 @@ namespace CarReportSystem {
                     MessageBox.Show(ex.Message);
 
                 }
-                
+
             }
         }
 
@@ -211,8 +210,8 @@ namespace CarReportSystem {
 
         //写真の削除ボタン
         private void buttonPicDelete_Click(object sender, EventArgs e) {
-             pictureBox.Image = null;
-            
+            pictureBox.Image = null;
+
         }
 
         //写真の開くボタン
@@ -232,16 +231,16 @@ namespace CarReportSystem {
             listCarReport[iRow].Maker = GetCheckBoxGroup();
             listCarReport[iRow].Report = textReport.Text;
             listCarReport[iRow].Picture = pictureBox.Image;
-            
+
             dataGridView1.Refresh();
             maskJudge();
-        }      
-        
+        }
+
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
             //設定ファイルをシリアル化
             using (var writer = XmlWriter.Create("settings.xml")) {
-                var serializer = new XmlSerializer(setting.GetType()); 
+                var serializer = new XmlSerializer(setting.GetType());
                 serializer.Serialize(writer, setting);
             }
 
@@ -249,10 +248,11 @@ namespace CarReportSystem {
 
         //色設定ダイアログの表示
         private void 色の設定ToolStripMenuItem_Click(object sender, EventArgs e) {
-            
-            if (colorDialogSelect.ShowDialog() == DialogResult.OK) {
-                setting.MainFormColor = colorDialogSelect.Color;
 
+            if (colorDialogSelect.ShowDialog() == DialogResult.OK) {
+                setting.MainFormColor = colorDialogSelect.Color.ToArgb();
+                Color color = colorDialogSelect.Color;
+                BackColor = color;
             }
         }
     }
