@@ -13,8 +13,9 @@ using System.Xml.Serialization;
 namespace CarReportSystem {
     public partial class Form1 : Form {
         //設定情報オブジェクト
-        Settings setting = new Settings();
-        BindingList<CarReport> listCarReport = new BindingList<CarReport>();
+        Settings settings = Settings.getSettings();
+       
+       private BindingList<CarReport> listCarReport = new BindingList<CarReport>();
 
         public Form1() {
             InitializeComponent();
@@ -23,14 +24,20 @@ namespace CarReportSystem {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            //設定ファイルを逆シリアル化して拝啓の色を設定
-            using (var reader = XmlReader.Create("settings.xml")) {
-                var serializer = new XmlSerializer(typeof(Settings));
-                var setting = serializer.Deserialize(reader) as Settings;
-
-                BackColor = Color.FromArgb(setting.MainFormColor);
-            }
             maskJudge();
+            //設定ファイルを逆シリアル化して拝啓の色を設定
+            try {
+                using (var reader = XmlReader.Create("settings.xml")) {
+                    var serializer = new XmlSerializer(typeof(Settings));
+                    var setting = serializer.Deserialize(reader) as Settings;
+
+                    BackColor = Color.FromArgb(setting.MainFormColor);
+                }
+                
+            } catch (Exception) {
+             
+            }
+           
         }
 
         //追加ボタン
@@ -240,8 +247,8 @@ namespace CarReportSystem {
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
             //設定ファイルをシリアル化
             using (var writer = XmlWriter.Create("settings.xml")) {
-                var serializer = new XmlSerializer(setting.GetType());
-                serializer.Serialize(writer, setting);
+                var serializer = new XmlSerializer(settings.GetType());
+                serializer.Serialize(writer, settings);
             }
 
         }
@@ -250,9 +257,10 @@ namespace CarReportSystem {
         private void 色の設定ToolStripMenuItem_Click(object sender, EventArgs e) {
 
             if (colorDialogSelect.ShowDialog() == DialogResult.OK) {
-                setting.MainFormColor = colorDialogSelect.Color.ToArgb();
-                Color color = colorDialogSelect.Color;
-                BackColor = color;
+                settings.MainFormColor = colorDialogSelect.Color.ToArgb();
+                BackColor = colorDialogSelect.Color;
+
+
             }
         }
     }
