@@ -19,7 +19,7 @@ namespace DistanceConverter {
             }           
         }
 
-        static double GetDistance(ConverterBase from) {
+        static double GetDistance(Framework.ConverterBase from) {
             double? value = null;
             do {
                 Console.Write($"変換したい距離(単位:{from.UnitName})を入力してください => ");
@@ -30,8 +30,8 @@ namespace DistanceConverter {
             return value.Value;
         }
 
-        static ConverterBase GetConverter(string msg) {
-            ConverterBase converter = null;
+        static Framework.ConverterBase GetConverter(string msg) {
+            Framework.ConverterBase converter = null;
             do {
                 Console.Write(msg + " => ");
                 var unit = Console.ReadLine();

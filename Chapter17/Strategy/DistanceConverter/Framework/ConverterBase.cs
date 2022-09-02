@@ -1,4 +1,4 @@
-﻿namespace DistanceConverter {
+﻿namespace DistanceConverter.Framework {
     public abstract class ConverterBase {
 
         public abstract bool IsMyUnit(string name);
