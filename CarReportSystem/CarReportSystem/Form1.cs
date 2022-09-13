@@ -130,10 +130,12 @@ namespace CarReportSystem {
         private void buttunSave_Click(object sender, EventArgs e) {
 
             //データグリッドビューの選択レコードを各テキストボックスへ
-
-            carReportDBDataGridView.CurrentRow.Cells[2].Value = dateTimePicker.Text;
-            carReportDBDataGridView.CurrentRow.Cells[3].Value = cbAuthor.Text;
-            carReportDBDataGridView.CurrentRow.Cells[5].Value = cbCarName.Text;
+           
+            carReportDBDataGridView.CurrentRow.Cells[1].Value = dateTimePicker.Text;
+            carReportDBDataGridView.CurrentRow.Cells[2].Value = cbAuthor.Text;
+            GetCheckBoxGroup();
+            carReportDBDataGridView.CurrentRow.Cells[4].Value = cbCarName.Text;
+            carReportDBDataGridView.CurrentRow.Cells[5].Value = textReport.Text;
             carReportDBDataGridView.CurrentRow.Cells[6].Value = ImageToByteArray(pictureBox.Image);
 
             //データセットの中をデータベースへ反映
@@ -253,13 +255,13 @@ namespace CarReportSystem {
         }
 
         private void carReportDBDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e) {
-            textEmpty();
+            //textEmpty();
             if (carReportDBDataGridView.CurrentRow == null) {
                 return;
             }
 
-            dateTimePicker.Text = carReportDBDataGridView.CurrentRow.Cells[2].Value.ToString();
-            cbAuthor.Text = carReportDBDataGridView.CurrentRow.Cells[3].Value.ToString();
+            dateTimePicker.Text = carReportDBDataGridView.CurrentRow.Cells[1].Value.ToString();
+            cbAuthor.Text = carReportDBDataGridView.CurrentRow.Cells[2].Value.ToString();
             cbCarName.Text = carReportDBDataGridView.CurrentRow.Cells[4].Value.ToString();
             textReport.Text = carReportDBDataGridView.CurrentRow.Cells[5].Value.ToString();
             if (!(carReportDBDataGridView.CurrentRow.Cells[6].Value is DBNull)) {
@@ -268,9 +270,6 @@ namespace CarReportSystem {
             } else {
                 pictureBox.Image = null;
             }
-
-
-
 
         }
         // バイト配列をImageオブジェクトに変換
