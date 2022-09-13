@@ -19,11 +19,13 @@ namespace CarReportSystem {
 
         public Form1() {
             InitializeComponent();
-            dataGridView1.DataSource = listCarReport;
+            //carReportDBDataGridView.DataSource = listCarReport;
+
 
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+            
             maskJudge();
             //設定ファイルを逆シリアル化して拝啓の色を設定
             try {
@@ -109,40 +111,7 @@ namespace CarReportSystem {
             }
         }
 
-        //データグリッドビュー
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {
-            int iRow = dataGridView1.CurrentRow.Index;
-            if (dataGridView1.CurrentRow == null)
-                return;
-            cbCarName.Text = listCarReport[iRow].CarName;
-            cbAuthor.Text = listCarReport[iRow].Auther;
-            dateTimePicker.Value = listCarReport[iRow].Date;
-
-            foreach (var grop in listCarReport[iRow].Maker) {
-                switch (grop) {
-                    case CarReport.MakerGroup.スバル:
-                        rbSubaru.Checked = true;
-                        break;
-                    case CarReport.MakerGroup.トヨタ:
-                        rbToyota.Checked = true;
-                        break;
-                    case CarReport.MakerGroup.日産:
-                        rbNissan.Checked = true;
-                        break;
-                    case CarReport.MakerGroup.外国車:
-                        rbGaikokusya.Checked = true;
-                        break;
-                    case CarReport.MakerGroup.ホンダ:
-                        rbHonda.Checked = true;
-                        break;
-                    case CarReport.MakerGroup.その他:
-                        rbOther.Checked = true;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+        
 
         //終了ボタン
         private void buttonExit_Click(object sender, EventArgs e) {
@@ -151,7 +120,7 @@ namespace CarReportSystem {
 
         //削除ボタン
         private void buttonDelete_Click(object sender, EventArgs e) {
-            int iRow = dataGridView1.CurrentRow.Index;
+            int iRow = carReportDBDataGridView.CurrentRow.Index;
 
             listCarReport.RemoveAt(iRow);
             maskJudge();
@@ -159,6 +128,19 @@ namespace CarReportSystem {
 
         //保存ボタン
         private void buttunSave_Click(object sender, EventArgs e) {
+
+            //データグリッドビューの選択レコードを各テキストボックスへ
+
+            carReportDBDataGridView.CurrentRow.Cells[2].Value = dateTimePicker.Text;
+            carReportDBDataGridView.CurrentRow.Cells[3].Value = cbAuthor.Text;
+            carReportDBDataGridView.CurrentRow.Cells[5].Value = cbCarName.Text;
+            carReportDBDataGridView.CurrentRow.Cells[6].Value = ImageToByteArray(pictureBox.Image);
+
+            //データセットの中をデータベースへ反映
+            this.Validate();
+            this.carReportDBBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.infosys202211DataSet);
+
 
             if (saveFile.ShowDialog() == DialogResult.OK) {
                 try {
@@ -190,8 +172,8 @@ namespace CarReportSystem {
 
                         //逆シリアル化して読み込む
                         listCarReport = (BindingList<CarReport>)bf.Deserialize(fs);
-                        dataGridView1.DataSource = null;
-                        dataGridView1.DataSource = listCarReport;
+                        carReportDBDataGridView.DataSource = null;
+                        carReportDBDataGridView.DataSource = listCarReport;
                     }
 
                 } catch (Exception ex) {
@@ -231,7 +213,7 @@ namespace CarReportSystem {
         //修正ボタン
         private void buttonCorrect_Click(object sender, EventArgs e) {
 
-            int iRow = dataGridView1.CurrentRow.Index;
+            int iRow = carReportDBDataGridView.CurrentRow.Index;
             listCarReport[iRow].Date = dateTimePicker.Value;
             listCarReport[iRow].CarName = cbCarName.Text;
             listCarReport[iRow].Auther = cbAuthor.Text;
@@ -239,7 +221,7 @@ namespace CarReportSystem {
             listCarReport[iRow].Report = textReport.Text;
             listCarReport[iRow].Picture = pictureBox.Image;
 
-            dataGridView1.Refresh();
+            carReportDBDataGridView.Refresh();
             maskJudge();
         }
 
@@ -263,5 +245,47 @@ namespace CarReportSystem {
 
             }
         }
+
+        //データベース接続
+        private void データベース接続ToolStripMenuItem_Click(object sender, EventArgs e) {
+            // TODO: このコード行はデータを 'infosys202211DataSet.CarReportDB' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
+            this.carReportDBTableAdapter.Fill(this.infosys202211DataSet.CarReportDB);
+        }
+
+        private void carReportDBDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+            textEmpty();
+            if (carReportDBDataGridView.CurrentRow == null) {
+                return;
+            }
+
+            dateTimePicker.Text = carReportDBDataGridView.CurrentRow.Cells[2].Value.ToString();
+            cbAuthor.Text = carReportDBDataGridView.CurrentRow.Cells[3].Value.ToString();
+            cbCarName.Text = carReportDBDataGridView.CurrentRow.Cells[4].Value.ToString();
+            textReport.Text = carReportDBDataGridView.CurrentRow.Cells[5].Value.ToString();
+            if (!(carReportDBDataGridView.CurrentRow.Cells[6].Value is DBNull)) {
+                pictureBox.Image = ByteArrayToImage((byte[])carReportDBDataGridView.CurrentRow.Cells[6].Value);
+
+            } else {
+                pictureBox.Image = null;
+            }
+
+
+
+
+        }
+        // バイト配列をImageオブジェクトに変換
+        public static Image ByteArrayToImage(byte[] b) {
+            ImageConverter imgconv = new ImageConverter();
+            Image img = (Image)imgconv.ConvertFrom(b);
+            return img;
+        }
+
+        // Imageオブジェクトをバイト配列に変換
+        public static byte[] ImageToByteArray(Image img) {
+            ImageConverter imgconv = new ImageConverter();
+            byte[] b = (byte[])imgconv.ConvertTo(img, typeof(byte[]));
+            return b;
+        }
+
     }
 }
