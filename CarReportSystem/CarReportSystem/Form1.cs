@@ -111,13 +111,19 @@ namespace CarReportSystem {
         //マスク
         private void maskJudge() {
             if (carReportDBDataGridView.RowCount > 0) {
-                buttonDelete.Enabled  = buttonPicDelete.Enabled = false;
-
-            } else {
                 buttonDelete.Enabled  = buttonPicDelete.Enabled = true;
 
+            } else {
+                buttonDelete.Enabled  = buttonPicDelete.Enabled = false;
+
             }
-            
+
+            if (text_SerchName.Text == "") {
+                button_Clear.Enabled = false;
+            } else {
+                button_Clear.Enabled = true;
+            }
+
         }
 
         //テキストを空白にする
@@ -185,8 +191,7 @@ namespace CarReportSystem {
                 cbCarName.Items.Add(carName);
             }
         }
-
-        
+       
 
         //終了ボタン
         private void buttonExit_Click(object sender, EventArgs e) {
@@ -307,7 +312,6 @@ namespace CarReportSystem {
                 settings.MainFormColor = colorDialogSelect.Color.ToArgb();
                 BackColor = colorDialogSelect.Color;
 
-
             }
         }
 
@@ -336,6 +340,7 @@ namespace CarReportSystem {
         private void button_Update_Click(object sender, EventArgs e) {
 
             //データグリッドビューの選択レコードを各テキストボックスへ
+            
             carReportDBDataGridView.CurrentRow.Cells[1].Value = dateTimePicker.Value;
             carReportDBDataGridView.CurrentRow.Cells[2].Value = cbAuthor.Text;
             carReportDBDataGridView.CurrentRow.Cells[3].Value = GetCheckBoxGroupString();
@@ -349,7 +354,9 @@ namespace CarReportSystem {
             this.tableAdapterManager.UpdateAll(this.infosys202211DataSet);
         }
 
+        //データグリッドビュークリック
         private void carReportDBDataGridView_Click(object sender, EventArgs e) {
+            maskJudge();
             textEmpty();
             if (carReportDBDataGridView.CurrentRow == null) {
                 return;
@@ -405,7 +412,18 @@ namespace CarReportSystem {
 
         //名前検索ボタン
         private void bottun_SerchName_Click(object sender, EventArgs e) {
+            
             carReportDBTableAdapter.FillBy(infosys202211DataSet.CarReportDB, text_SerchName.Text);
+            
+        }
+
+        //名前検索のクリアボタン        
+        private void button_Clear_Click(object sender, EventArgs e) {
+                
+                text_SerchName.Text = "";
+                carReportDBTableAdapter.FillBy(infosys202211DataSet.CarReportDB, text_SerchName.Text);
+           
+            
         }
     }
 }
