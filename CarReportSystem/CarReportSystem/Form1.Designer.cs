@@ -40,7 +40,6 @@ namespace CarReportSystem {
             this.buttonPicOpen = new System.Windows.Forms.Button();
             this.buttonPicDelete = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
-            this.buttonCorrect = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.rbToyota = new System.Windows.Forms.RadioButton();
@@ -72,6 +71,8 @@ namespace CarReportSystem {
             this.carReportDBTableAdapter = new CarReportSystem.infosys202211DataSetTableAdapters.CarReportDBTableAdapter();
             this.tableAdapterManager = new CarReportSystem.infosys202211DataSetTableAdapters.TableAdapterManager();
             this.button_Update = new System.Windows.Forms.Button();
+            this.bottun_SerchName = new System.Windows.Forms.Button();
+            this.text_SerchName = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.carReportDBDataGridView)).BeginInit();
@@ -218,7 +219,7 @@ namespace CarReportSystem {
             // 
             this.buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonAdd.Font = new System.Drawing.Font("ＭＳ ゴシック", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.buttonAdd.Location = new System.Drawing.Point(565, 363);
+            this.buttonAdd.Location = new System.Drawing.Point(565, 351);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 33);
             this.buttonAdd.TabIndex = 5;
@@ -226,23 +227,11 @@ namespace CarReportSystem {
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
-            // buttonCorrect
-            // 
-            this.buttonCorrect.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.buttonCorrect.Font = new System.Drawing.Font("ＭＳ ゴシック", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.buttonCorrect.Location = new System.Drawing.Point(662, 363);
-            this.buttonCorrect.Name = "buttonCorrect";
-            this.buttonCorrect.Size = new System.Drawing.Size(75, 33);
-            this.buttonCorrect.TabIndex = 5;
-            this.buttonCorrect.Text = "修正";
-            this.buttonCorrect.UseVisualStyleBackColor = true;
-            this.buttonCorrect.Click += new System.EventHandler(this.buttonCorrect_Click);
-            // 
             // buttonDelete
             // 
             this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonDelete.Font = new System.Drawing.Font("ＭＳ ゴシック", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.buttonDelete.Location = new System.Drawing.Point(763, 363);
+            this.buttonDelete.Location = new System.Drawing.Point(565, 395);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(75, 33);
             this.buttonDelete.TabIndex = 5;
@@ -489,12 +478,33 @@ namespace CarReportSystem {
             this.button_Update.UseVisualStyleBackColor = true;
             this.button_Update.Click += new System.EventHandler(this.button_Update_Click);
             // 
+            // bottun_SerchName
+            // 
+            this.bottun_SerchName.Font = new System.Drawing.Font("ＭＳ ゴシック", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.bottun_SerchName.Location = new System.Drawing.Point(679, 351);
+            this.bottun_SerchName.Name = "bottun_SerchName";
+            this.bottun_SerchName.Size = new System.Drawing.Size(125, 33);
+            this.bottun_SerchName.TabIndex = 30;
+            this.bottun_SerchName.Text = "名前検索";
+            this.bottun_SerchName.UseVisualStyleBackColor = true;
+            this.bottun_SerchName.Click += new System.EventHandler(this.bottun_SerchName_Click);
+            // 
+            // text_SerchName
+            // 
+            this.text_SerchName.Font = new System.Drawing.Font("ＭＳ ゴシック", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.text_SerchName.Location = new System.Drawing.Point(679, 390);
+            this.text_SerchName.Name = "text_SerchName";
+            this.text_SerchName.Size = new System.Drawing.Size(223, 36);
+            this.text_SerchName.TabIndex = 31;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(948, 662);
+            this.Controls.Add(this.text_SerchName);
+            this.Controls.Add(this.bottun_SerchName);
             this.Controls.Add(this.button_Update);
             this.Controls.Add(this.carReportDBDataGridView);
             this.Controls.Add(this.rbOther);
@@ -508,7 +518,6 @@ namespace CarReportSystem {
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.buttonPicDelete);
             this.Controls.Add(this.buttonDelete);
-            this.Controls.Add(this.buttonCorrect);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.buttonPicOpen);
             this.Controls.Add(this.cbCarName);
@@ -555,7 +564,6 @@ namespace CarReportSystem {
         private System.Windows.Forms.Button buttonPicOpen;
         private System.Windows.Forms.Button buttonPicDelete;
         private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.Button buttonCorrect;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.RadioButton rbToyota;
@@ -587,6 +595,8 @@ namespace CarReportSystem {
         private System.Windows.Forms.DataGridViewTextBoxColumn reportDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewImageColumn imageDataGridViewImageColumn;
         private System.Windows.Forms.Button button_Update;
+        private System.Windows.Forms.Button bottun_SerchName;
+        private System.Windows.Forms.TextBox text_SerchName;
     }
 }
 
