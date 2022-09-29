@@ -7,8 +7,8 @@ using System.Linq;
 namespace SampleEntityFramework {
     class Program {
         static void Main(string[] args) {
-            //InsertBooks();
 
+            //InsertBooks();
             //AddAuthors();
             //AddBooks();
             //Exercise01();
@@ -30,6 +30,7 @@ namespace SampleEntityFramework {
             Console.WriteLine("**************************************************");
             Console.WriteLine();
 
+            //Exercise05
             using (var db = new BooksDbContext()) {
                 var authors = db.Authors.OrderByDescending(x => x.Birthday).ToList();
 
@@ -230,7 +231,6 @@ namespace SampleEntityFramework {
             }
 
         }
-
        
         // List 13-10
         private static void AddBooks() {
