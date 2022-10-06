@@ -78,7 +78,7 @@ namespace Exercise1 {
         }
 
         private static void Exercise1_7() {
-
+            var development = Library.Books.OrderBy(o => o.PublishedYear);
         }
 
         private static void Exercise1_8() {
