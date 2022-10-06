@@ -31,15 +31,22 @@ namespace Exercise1 {
         }
 
         private static void Exercise1_3() {
-            var group = Library.Books.GroupBy(b => b.PublishedYear).Select(g => new {
-                Year = g.Key,
-                Count = g.Count()
-            });
+            //var group = Library.Books.GroupBy(b => b.PublishedYear).Select(g => new {
+            //    Year = g.Key,
+            //    Count = g.Count()
+            //});
+
+            //foreach (var c in group) {
+            //    Console.WriteLine($"{c.Year}年 {c.Count}冊");
+
+            //}
+
+            var group1 = Library.Books.GroupBy(b => b.PublishedYear).OrderBy(b =>b.Key);
+            foreach (var g in group1) {
+                Console.WriteLine($"{g.Key}年,{g.Count()}冊");
+            }
             
-            foreach (var c in group) {
-                Console.WriteLine($"{c.Year}年 {c.Count}冊");
-                
-            }           
+            
         }
 
         private static void Exercise1_4() {
