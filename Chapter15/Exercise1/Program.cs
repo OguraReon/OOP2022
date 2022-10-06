@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Exercise1 {
     class Program {
@@ -27,46 +24,50 @@ namespace Exercise1 {
         private static void Exercise1_2() {
             var max = Library.Books.Max(b => b.Price);
             var book = Library.Books.First(b => b.Price == max);
-            Console.WriteLine(book);                     
+            Console.WriteLine(book);
         }
 
         private static void Exercise1_3() {
-            //var group = Library.Books.GroupBy(b => b.PublishedYear).Select(g => new {
-            //    Year = g.Key,
-            //    Count = g.Count()
-            //});
 
-            //foreach (var c in group) {
-            //    Console.WriteLine($"{c.Year}年 {c.Count}冊");
-
-            //}
-
-            var group1 = Library.Books.GroupBy(b => b.PublishedYear).OrderBy(b =>b.Key);
+            var group1 = Library.Books.GroupBy(b => b.PublishedYear).OrderBy(b => b.Key);
             foreach (var g in group1) {
-                Console.WriteLine($"{g.Key}年,{g.Count()}冊");
+                Console.WriteLine($"{g.Key}年　{g.Count()}冊");
             }
-            
-            
+
+
         }
 
         private static void Exercise1_4() {
-            
+            var book = Library.Books.OrderByDescending(o => o.PublishedYear)
+                                    .ThenByDescending(o => o.Price);
+            foreach (var b in book) {
+                Console.WriteLine(b);
+            }
         }
 
         private static void Exercise1_5() {
-            
+            var books = Library.Books.Where(b =>b.PublishedYear == 2016)
+                                     .Join(Library.Categories,
+                                            book => book.CategoryId,
+                                            category => category.Id,
+                                            (book, category) =>category.Name
+
+                                            ).Distinct();
+            foreach (var book in books) {
+                Console.WriteLine(book);
+            }
         }
 
         private static void Exercise1_6() {
-           
+
         }
 
         private static void Exercise1_7() {
-            
+
         }
 
         private static void Exercise1_8() {
-           
+
         }
     }
 }
