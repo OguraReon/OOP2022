@@ -45,6 +45,7 @@ namespace Chapter15 {
 
             }
 
+
             //入力された発行年を表示して、そのあとカテゴリ別
 
             var group = Library.Books.Where(b => Years.Contains(b.PublishedYear))
