@@ -46,11 +46,11 @@ namespace Exercise1 {
         }
 
         private static void Exercise1_5() {
-            var books = Library.Books.Where(b =>b.PublishedYear == 2016)
+            var books = Library.Books.Where(b => b.PublishedYear == 2016)
                                      .Join(Library.Categories,
                                             book => book.CategoryId,
                                             category => category.Id,
-                                            (book, category) =>category.Name
+                                            (book, category) => category.Name
 
                                             ).Distinct();
             foreach (var book in books) {
@@ -59,6 +59,21 @@ namespace Exercise1 {
         }
 
         private static void Exercise1_6() {
+
+            var groups = Library.Categories.GroupJoin(Library.Books,
+                                                            c => c.Id,
+                                                            b => b.CategoryId,
+                                                            (c, books) => new {
+                                                                Category = c.Name,
+                                                                Books = books
+                                                            });
+            foreach (var group in groups) {
+                Console.WriteLine(group.Category);
+                foreach (var book in group.Books) {
+                    Console.WriteLine($"    {book.Title}");
+                }
+            }
+
 
         }
 
