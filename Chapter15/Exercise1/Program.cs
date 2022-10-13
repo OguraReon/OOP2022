@@ -78,11 +78,30 @@ namespace Exercise1 {
         }
 
         private static void Exercise1_7() {
-            var development = Library.Books.OrderBy(o => o.PublishedYear);
+            var categoryId = Library.Categories.Single(c => c.Name == "Development").Id ;
+            var groups = Library.Books
+                                .Where(b => b.CategoryId == categoryId)
+                                .GroupBy(g => g.PublishedYear)
+                                .OrderBy(b => b.Key);
+
+            foreach (var group in groups) {
+                Console.WriteLine("#{0}年",group.Key);
+                foreach (var book in group) {
+                    Console.WriteLine("{0}" ,book.Title);
+                }
+            }
         }
 
         private static void Exercise1_8() {
+            var groups = Library.Categories.GroupJoin(Library.Books,
+                                                      c => c.Id,
+                                                      book => book.CategoryId,
+                                                      (c, book) => new { Category = c.Name, Books = book.Count() });
+            var categoryName = groups.Where(c => c.Books >= 4);
 
+            foreach (var cateName in categoryName) {
+                Console.WriteLine("{0}",cateName.Category);
+            }
         }
     }
 }
