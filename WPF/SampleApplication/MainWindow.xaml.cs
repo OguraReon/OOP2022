@@ -22,8 +22,28 @@ namespace SampleApplication {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) {
-            MessageBox.Show("Hello World!!!");
+        private void checkBox_Checked(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void checkBox_Unchecked(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void redRadioButton_Checked(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void yellowRadioButton_Checked(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void blueRadioButton_Checked(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void seasonComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+
         }
     }
 }
