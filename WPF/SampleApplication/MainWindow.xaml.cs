@@ -64,8 +64,6 @@ namespace SampleApplication {
             }
             return 3;
 
-
-
         }
     }
 }
