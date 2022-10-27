@@ -15,7 +15,7 @@ namespace CarReportSystem {
         //設定情報オブジェクト
         Settings settings = Settings.getSettings();
        
-       //private BindingList<CarReport> listCarReport = new BindingList<CarReport>();
+       private BindingList<CarReport> listCarReport = new BindingList<CarReport>();
 
         public Form1() {
             InitializeComponent();
