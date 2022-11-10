@@ -10,7 +10,8 @@ namespace CollarChecker {
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
     public partial class MainWindow : Window {
-        MyColor myColor;
+
+        List<MyColor> colors = new List<MyColor>();
         //コンストラクタ
         public MainWindow() {
             InitializeComponent();
@@ -41,50 +42,64 @@ namespace CollarChecker {
             var g = byte.Parse(gValue.Text);
             var b = byte.Parse(bValue.Text);
             colorArea.Background = new SolidColorBrush(Color.FromRgb(r, g, b));
-            
+
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             var mycolor = (MyColor)((ComboBox)sender).SelectedItem;
-            
-           // var colorNum =  Color.FromRgb(byte.Parse(rValue.Text),byte.Parse(gValue.Text),byte.Parse(bValue.Text));
-            var color = mycolor.Color;
-            var name = mycolor.Name;
-            colorArea.Background = new SolidColorBrush(color);
-            rValue.Text = color.R.ToString();
-            gValue.Text = color.G.ToString();
-            bValue.Text = color.B.ToString();
             rSlider.Value = mycolor.Color.R;
             gSlider.Value = mycolor.Color.G;
             bSlider.Value = mycolor.Color.B;
+            setColor();
 
-            
         }
 
         private void Stock_Click(object sender, RoutedEventArgs e) {
-            var mycolor = (MyColor)colorComboBox.SelectedItem;
-            var mycolorR = rSlider.Value;
-            var mycolorG = gSlider.Value;
-            var mycolorB = bSlider.Value;
-            var mycolorRGB = "R:" + mycolorR + " G:" + mycolorG + " B:" + mycolorB;
-            List<string> colors = new List<string>();   
-            
-            colors.Add(mycolorRGB);                      
-            foreach (var c in colors) {
-
-                listColorBox.Items.Add(c);
+            if (listColorBox.Items.Count != 0) {
+                deleteButton.IsEnabled = true;
             }
-            
-            
+            //var mycolor = (MyColor)colorComboBox.SelectedItem;
+            //var mycolorR = rSlider.Value;
+            //var mycolorG = gSlider.Value;
+            //var mycolorB = bSlider.Value;
+            //var mycolorRGB = "R:" + mycolorR + " G:" + mycolorG + " B:" + mycolorB;
+            //List<string> colors = new List<string>();   
+
+            //colors.Add(mycolorRGB);                      
+            //foreach (var c in colors) {
+
+            //    listColorBox.Items.Add(c);
+            //}
+
+            //listColorBox.Items.Add("R:" + rValue.Text + " G:" + gValue.Text + " B:" + bValue.Text);
+            MyColor myColor = new MyColor();
+            var r = byte.Parse(rValue.Text);
+            var g = byte.Parse(gValue.Text);
+            var b = byte.Parse(bValue.Text);
+            myColor.Color = Color.FromRgb(r, g, b);
+
+
+            var colorName = ((IEnumerable<MyColor>)DataContext).Where(c => c.Color.R == myColor.Color.R &&
+                                                                          c.Color.G == myColor.Color.G &&
+                                                                          c.Color.B == myColor.Color.B).FirstOrDefault();
+            listColorBox.Items.Insert(0, colorName?.Name ?? "R:" + r + " G:" + g + " B:" + b);
+            colors.Insert(0, myColor);
         }
 
         private void DELETE_Click(object sender, RoutedEventArgs e) {
+
             listColorBox.Items.RemoveAt(0);
+            if (listColorBox.Items.Count == 0) {
+                deleteButton.IsEnabled = false;
+            }
+
         }
 
         private void listColorBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            var mycolor = (MyColor)colorComboBox.SelectedItem;
-            
+            rSlider.Value = colors[listColorBox.SelectedIndex].Color.R;
+            gSlider.Value = colors[listColorBox.SelectedIndex].Color.G;
+            bSlider.Value = colors[listColorBox.SelectedIndex].Color.B;
+            setColor();
         }
     }
 
