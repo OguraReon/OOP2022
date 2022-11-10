@@ -55,9 +55,8 @@ namespace CollarChecker {
         }
 
         private void Stock_Click(object sender, RoutedEventArgs e) {
-            if (listColorBox.Items.Count != 0) {
-                deleteButton.IsEnabled = true;
-            }
+            
+            
             //var mycolor = (MyColor)colorComboBox.SelectedItem;
             //var mycolorR = rSlider.Value;
             //var mycolorG = gSlider.Value;
@@ -84,14 +83,21 @@ namespace CollarChecker {
                                                                           c.Color.B == myColor.Color.B).FirstOrDefault();
             listColorBox.Items.Insert(0, colorName?.Name ?? "R:" + r + " G:" + g + " B:" + b);
             colors.Insert(0, myColor);
+            maskJudge();
+        }
+
+        private void maskJudge() {
+            if (listColorBox.Items.Count != 0) {
+                deleteButton.IsEnabled = true;
+            } else {
+                deleteButton.IsEnabled = false;
+            }
         }
 
         private void DELETE_Click(object sender, RoutedEventArgs e) {
 
             listColorBox.Items.RemoveAt(0);
-            if (listColorBox.Items.Count == 0) {
-                deleteButton.IsEnabled = false;
-            }
+            maskJudge();
 
         }
 
