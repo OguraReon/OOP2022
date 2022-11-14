@@ -87,7 +87,7 @@ namespace CollarChecker {
         }
 
         private void maskJudge() {
-            if (listColorBox.Items.Count != 0) {
+            if (listColorBox.Items.Count != 0 && colors.Count() != 0) {
                 deleteButton.IsEnabled = true;
             } else {
                 deleteButton.IsEnabled = false;
@@ -97,6 +97,7 @@ namespace CollarChecker {
         private void DELETE_Click(object sender, RoutedEventArgs e) {
 
             listColorBox.Items.RemoveAt(0);
+            colors.RemoveAt(0);
             maskJudge();
 
         }
