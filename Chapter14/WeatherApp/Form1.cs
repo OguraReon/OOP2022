@@ -28,9 +28,12 @@ namespace WeatherApp {
             var url = getUrl();
             var dString = wc.DownloadString(url);
             var json = JsonConvert.DeserializeObject<Rootobject>(dString);
+
             office.Text = json.publishingOffice;
             date_select.Text = json.reportDatetime.ToShortDateString();
             weatherInfo.Text = json.text;
+
+
         }
         //コンボボックスに地域を格納
         private  void setPre(string name){
@@ -48,10 +51,21 @@ namespace WeatherApp {
 
         //エリアコードをURLに代入してURLを返す
         private string getUrl() {
+            var code = areas[cb_areaList.Text];
+            var dateUrl = $"https://www.jma.go.jp/bosai/forecast/data/overview_forecast/{code}.json";
+            switch (date_select.SelectedIndex) {
+                case 0:
+                    dateUrl = $"https://www.jma.go.jp/bosai/forecast/data/overview_forecast/{code}.json";
+                    return dateUrl;
+                case 1:
+                    dateUrl = $"https://www.jma.go.jp/bosai/forecast/data/overview_forecast/{code}.json";
+                    return dateUrl;
+                case 2:
+                    dateUrl = $"https://www.jma.go.jp/bosai/forecast/data/overview_week/{code}.json";
+                    return dateUrl;
+            }
 
-            var code = areas[cb_areaList.Text];          
-            var url = $"https://www.jma.go.jp/bosai/forecast/data/overview_forecast/{code}.json";
-            return url;
+            return dateUrl;
         }
 
         //起動時
