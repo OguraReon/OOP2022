@@ -31,18 +31,19 @@ namespace WeatherApp {
             this.label2 = new System.Windows.Forms.Label();
             this.office = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.dateTimeText = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.areaCode_Text = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.wetherPicture = new System.Windows.Forms.PictureBox();
+            this.date_select = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.wetherPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // weatherInfo
             // 
+            this.weatherInfo.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.weatherInfo.Location = new System.Drawing.Point(12, 172);
             this.weatherInfo.Multiline = true;
             this.weatherInfo.Name = "weatherInfo";
-            this.weatherInfo.Size = new System.Drawing.Size(572, 266);
+            this.weatherInfo.Size = new System.Drawing.Size(325, 266);
             this.weatherInfo.TabIndex = 0;
             // 
             // weatherGet
@@ -57,10 +58,11 @@ namespace WeatherApp {
             // 
             // cb_areaList
             // 
+            this.cb_areaList.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.cb_areaList.FormattingEnabled = true;
             this.cb_areaList.Location = new System.Drawing.Point(261, 91);
             this.cb_areaList.Name = "cb_areaList";
-            this.cb_areaList.Size = new System.Drawing.Size(121, 20);
+            this.cb_areaList.Size = new System.Drawing.Size(230, 27);
             this.cb_areaList.TabIndex = 2;
             this.cb_areaList.SelectedIndexChanged += new System.EventHandler(this.cb_areaList_SelectedIndexChanged);
             // 
@@ -68,6 +70,7 @@ namespace WeatherApp {
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.label1.Location = new System.Drawing.Point(149, 87);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 24);
@@ -78,6 +81,7 @@ namespace WeatherApp {
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label2.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.label2.Location = new System.Drawing.Point(149, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(106, 24);
@@ -86,6 +90,7 @@ namespace WeatherApp {
             // 
             // office
             // 
+            this.office.Font = new System.Drawing.Font("ＭＳ ゴシック", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.office.Location = new System.Drawing.Point(261, 12);
             this.office.Multiline = true;
             this.office.Name = "office";
@@ -96,56 +101,49 @@ namespace WeatherApp {
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label3.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.label3.Location = new System.Drawing.Point(149, 51);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(82, 24);
             this.label3.TabIndex = 7;
             this.label3.Text = "発信日";
             // 
-            // dateTimeText
-            // 
-            this.dateTimeText.Location = new System.Drawing.Point(261, 51);
-            this.dateTimeText.Multiline = true;
-            this.dateTimeText.Name = "dateTimeText";
-            this.dateTimeText.Size = new System.Drawing.Size(157, 24);
-            this.dateTimeText.TabIndex = 8;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("MS UI Gothic", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label4.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.label4.Location = new System.Drawing.Point(3, 134);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(155, 35);
             this.label4.TabIndex = 9;
             this.label4.Text = "天気概要";
             // 
-            // areaCode_Text
+            // wetherPicture
             // 
-            this.areaCode_Text.Location = new System.Drawing.Point(523, 91);
-            this.areaCode_Text.Name = "areaCode_Text";
-            this.areaCode_Text.Size = new System.Drawing.Size(157, 19);
-            this.areaCode_Text.TabIndex = 10;
+            this.wetherPicture.Location = new System.Drawing.Point(512, 16);
+            this.wetherPicture.Name = "wetherPicture";
+            this.wetherPicture.Size = new System.Drawing.Size(173, 118);
+            this.wetherPicture.TabIndex = 10;
+            this.wetherPicture.TabStop = false;
             // 
-            // label5
+            // date_select
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label5.Location = new System.Drawing.Point(388, 85);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(129, 27);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "エリアコード";
+            this.date_select.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.date_select.FormattingEnabled = true;
+            this.date_select.Location = new System.Drawing.Point(261, 51);
+            this.date_select.Name = "date_select";
+            this.date_select.Size = new System.Drawing.Size(157, 27);
+            this.date_select.TabIndex = 11;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 469);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.areaCode_Text);
+            this.Controls.Add(this.date_select);
+            this.Controls.Add(this.wetherPicture);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.dateTimeText);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.office);
             this.Controls.Add(this.label2);
@@ -156,6 +154,7 @@ namespace WeatherApp {
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.wetherPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -170,10 +169,9 @@ namespace WeatherApp {
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox office;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox dateTimeText;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox areaCode_Text;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.PictureBox wetherPicture;
+        private System.Windows.Forms.ComboBox date_select;
     }
 }
 
