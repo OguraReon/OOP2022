@@ -13,79 +13,76 @@ using System.Windows.Forms;
 
 namespace WeatherApp {
     public partial class Form1 : Form {
-        
-      
+        IDictionary<string,int> areas = areaCsvRead();
+        WebClient wc = new WebClient() {
+            Encoding = Encoding.UTF8
+        };
+
         public Form1() {
             InitializeComponent();
           
         }
 
-        private void weatherGet_Click(object sender, EventArgs e) { 
-            var wc = new WebClient() {
-                Encoding = Encoding.UTF8
-            };
-            var areaName = areaCsvRead().Keys;
-            var areaCode = areaCsvRead().Values;
-            if (cb_areaList.Text == areaName.ToString()) {
-                
-            }
-            //var wetherUrl =  getUrl(cb_areaList.Text);
-            //var dString = wc.DownloadString(wetherUrl);
-            //var json = JsonConvert.DeserializeObject<Rootobject>(dString);           
-            //office.Text = json.publishingOffice;
-            //dateTimeText.Text = json.reportDatetime.ToShortDateString();
-            //weatherInfo.Text = json.text;
+        private void weatherGet_Click(object sender, EventArgs e) {                               
+            var wetherUrl =  getUrl(cb_areaList.SelectedItem.ToString());
+            var dString = wc.DownloadString(wetherUrl);
+            var json = JsonConvert.DeserializeObject<Rootobject>(dString);
+            office.Text = json.offices.ToString();
+            dateTimeText.Text = json.class10s.ToString();
+            weatherInfo.Text = json.centers.ToString();
         }
         private  void  setPre(string name){
             if (cb_areaList.FindStringExact(name) == -1) {
                 cb_areaList.Items.Add(name);
             }
         }
-        
-        //private string getUrl() {
-        //    switch (name) {
 
-        //        case "青森県":
-        //            return "https://www.jma.go.jp/bosai/forecast/data/overview_forecast/020000.json";
+        private string getUrl(string name) {
+            var code = areaCode_Text.Text;
+           
+            var http = $"https://www.jma.go.jp/bosai/forecast/data/overview_forecast/{code}.json";
+            return http;
+        }
 
-        //        case "岩手県":
-        //            return "https://www.jma.go.jp/bosai/forecast/data/overview_forecast/030000.json";
-
-        //        case "宮城県":
-        //            return "https://www.jma.go.jp/bosai/forecast/data/overview_forecast/040000.json";
-
-        //        case "秋田県":
-        //            return "https://www.jma.go.jp/bosai/forecast/data/overview_forecast/050000.json";
-
-        //        default:
-        //            return "aaaaaaaaaa";
-        //    }
-        //}
 
         private void Form1_Load(object sender, EventArgs e) {
-            var areas = areaCsvRead();
+            
             foreach (var name in areas) {
                 setPre(name.Key);
             }
 
-
         }
-        //AreaCodeオブジェクトのディクショナリーを返す
-        private Dictionary<string,int> areaCsvRead() {
-            var file = @"AreaCode.csv";           
-            Dictionary<string, int> pre = new Dictionary<string, int>();
+
+        
+        private static Dictionary<string,int> areaCsvRead() {
+            
+            var file = @"areacode.csv";
+            var pre = new Dictionary<string,int>();
             string[] lines = File.ReadAllLines(file);
             foreach (var line in lines) {
                 string[] items = line.Split(',');
                 AreaCode areaCode = new AreaCode {
                     Name = items[0],
                     Code = int.Parse(items[1])
-
                 };
-                pre.Add(areaCode.Name, areaCode.Code);
+                
+                 pre.Add(areaCode.Name,areaCode.Code);
+                
             }
-            
             return pre;
+
+        }
+
+        private void cb_areaList_SelectedIndexChanged(object sender, EventArgs e) {
+            if (areas.ContainsKey(cb_areaList.Text)){
+                foreach (var d in areas) {
+                    areaCode_Text.Text = d.Value.ToString();
+                }
+                
+            }           
+            
+            
+
         }
     }
 }

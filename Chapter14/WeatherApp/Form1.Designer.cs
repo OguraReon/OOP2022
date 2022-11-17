@@ -32,6 +32,9 @@ namespace WeatherApp {
             this.office = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.dateTimeText = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.areaCode_Text = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // weatherInfo
@@ -46,7 +49,7 @@ namespace WeatherApp {
             // 
             this.weatherGet.Location = new System.Drawing.Point(12, 12);
             this.weatherGet.Name = "weatherGet";
-            this.weatherGet.Size = new System.Drawing.Size(128, 52);
+            this.weatherGet.Size = new System.Drawing.Size(128, 99);
             this.weatherGet.TabIndex = 1;
             this.weatherGet.Text = "取得";
             this.weatherGet.UseVisualStyleBackColor = true;
@@ -59,6 +62,7 @@ namespace WeatherApp {
             this.cb_areaList.Name = "cb_areaList";
             this.cb_areaList.Size = new System.Drawing.Size(121, 20);
             this.cb_areaList.TabIndex = 2;
+            this.cb_areaList.SelectedIndexChanged += new System.EventHandler(this.cb_areaList_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -106,11 +110,41 @@ namespace WeatherApp {
             this.dateTimeText.Size = new System.Drawing.Size(157, 24);
             this.dateTimeText.TabIndex = 8;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("MS UI Gothic", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label4.Location = new System.Drawing.Point(3, 134);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(155, 35);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "天気概要";
+            // 
+            // areaCode_Text
+            // 
+            this.areaCode_Text.Location = new System.Drawing.Point(523, 91);
+            this.areaCode_Text.Name = "areaCode_Text";
+            this.areaCode_Text.Size = new System.Drawing.Size(157, 19);
+            this.areaCode_Text.TabIndex = 10;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label5.Location = new System.Drawing.Point(388, 85);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(129, 27);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "エリアコード";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 469);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.areaCode_Text);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.dateTimeText);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.office);
@@ -137,6 +171,9 @@ namespace WeatherApp {
         private System.Windows.Forms.TextBox office;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox dateTimeText;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox areaCode_Text;
+        private System.Windows.Forms.Label label5;
     }
 }
 
