@@ -18,6 +18,7 @@ namespace WeatherApp {
 
         public Form1() {
             InitializeComponent();
+            
           
         }
 
@@ -27,11 +28,22 @@ namespace WeatherApp {
             };
             var url = getUrl();
             var dString = wc.DownloadString(url);
-            var json = JsonConvert.DeserializeObject<Rootobject>(dString);
+            if (date_select.SelectedIndex == 2) {
+                var jsonPic = JsonConvert.DeserializeObject<Class1[]>(dString);
+                var icon = jsonPic[0].timeSeries[1].areas[1].weatherCodes;
+                var iconUrl = $"https://www.jma.go.jp/bosai/forecast/img/{icon}.svg";
+               // wetherPicture.Location = 
 
-            office.Text = json.publishingOffice;
-            date_select.Text = json.reportDatetime.ToShortDateString();
-            weatherInfo.Text = json.text;
+            } else {
+                var json = JsonConvert.DeserializeObject<Rootobject>(dString);
+                office.Text = json.publishingOffice;
+                date_select.Text = json.reportDatetime.ToShortDateString();
+                weatherInfo.Text = json.text;
+                //wetherPicture.Image = 
+            }
+
+
+
 
 
         }
@@ -52,24 +64,31 @@ namespace WeatherApp {
         //エリアコードをURLに代入してURLを返す
         private string getUrl() {
             var code = areas[cb_areaList.Text];
-            var dateUrl = $"https://www.jma.go.jp/bosai/forecast/data/overview_forecast/{code}.json";
+            var dateUrl = $"https://www.jma.go.jp/bosai/forecast/data/overview_forecast/{code}.json";           
             switch (date_select.SelectedIndex) {
                 case 0:
                     dateUrl = $"https://www.jma.go.jp/bosai/forecast/data/overview_forecast/{code}.json";
-                    return dateUrl;
+                    break;
                 case 1:
                     dateUrl = $"https://www.jma.go.jp/bosai/forecast/data/overview_forecast/{code}.json";
-                    return dateUrl;
+                    break;
                 case 2:
-                    dateUrl = $"https://www.jma.go.jp/bosai/forecast/data/overview_week/{code}.json";
-                    return dateUrl;
+                    dateUrl = $"https://www.jma.go.jp/bosai/forecast/data/forecast/{code}.json";
+                    break;
             }
 
             return dateUrl;
         }
 
         //起動時
-        private void Form1_Load(object sender, EventArgs e) {          
+        private void Form1_Load(object sender, EventArgs e) {
+            BackgroundImageLayout = ImageLayout.Zoom;
+            BackgroundImage = Image.FromFile(@"RED2020906021_TP_V.jpg");
+            label1.BackColor = Color.Transparent;
+            label2.BackColor = Color.Transparent;
+            label3.BackColor = Color.Transparent;
+            label4.BackColor = Color.Transparent;
+            
             mask();
             foreach (var name in areas) {
                 setPre(name.Key);

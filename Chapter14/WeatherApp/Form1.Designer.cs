@@ -48,12 +48,15 @@ namespace WeatherApp {
             // 
             // weatherGet
             // 
+            this.weatherGet.BackColor = System.Drawing.Color.Snow;
+            this.weatherGet.Font = new System.Drawing.Font("ＭＳ ゴシック", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.weatherGet.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.weatherGet.Location = new System.Drawing.Point(12, 12);
             this.weatherGet.Name = "weatherGet";
             this.weatherGet.Size = new System.Drawing.Size(128, 99);
             this.weatherGet.TabIndex = 1;
             this.weatherGet.Text = "取得";
-            this.weatherGet.UseVisualStyleBackColor = true;
+            this.weatherGet.UseVisualStyleBackColor = false;
             this.weatherGet.Click += new System.EventHandler(this.weatherGet_Click);
             // 
             // cb_areaList
@@ -70,7 +73,7 @@ namespace WeatherApp {
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.label1.ForeColor = System.Drawing.Color.Snow;
             this.label1.Location = new System.Drawing.Point(149, 87);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 24);
@@ -81,8 +84,8 @@ namespace WeatherApp {
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.label2.Location = new System.Drawing.Point(149, 12);
+            this.label2.ForeColor = System.Drawing.Color.Snow;
+            this.label2.Location = new System.Drawing.Point(149, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(106, 24);
             this.label2.TabIndex = 5;
@@ -101,7 +104,7 @@ namespace WeatherApp {
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label3.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.label3.ForeColor = System.Drawing.Color.Snow;
             this.label3.Location = new System.Drawing.Point(149, 51);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(82, 24);
@@ -112,7 +115,7 @@ namespace WeatherApp {
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("MS UI Gothic", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label4.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.label4.ForeColor = System.Drawing.Color.Snow;
             this.label4.Location = new System.Drawing.Point(3, 134);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(155, 35);
@@ -121,9 +124,10 @@ namespace WeatherApp {
             // 
             // wetherPicture
             // 
-            this.wetherPicture.Location = new System.Drawing.Point(512, 16);
+            this.wetherPicture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.wetherPicture.Location = new System.Drawing.Point(497, 16);
             this.wetherPicture.Name = "wetherPicture";
-            this.wetherPicture.Size = new System.Drawing.Size(173, 118);
+            this.wetherPicture.Size = new System.Drawing.Size(188, 126);
             this.wetherPicture.TabIndex = 10;
             this.wetherPicture.TabStop = false;
             // 
@@ -140,6 +144,7 @@ namespace WeatherApp {
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(711, 469);
             this.Controls.Add(this.date_select);
             this.Controls.Add(this.wetherPicture);
@@ -151,8 +156,9 @@ namespace WeatherApp {
             this.Controls.Add(this.cb_areaList);
             this.Controls.Add(this.weatherGet);
             this.Controls.Add(this.weatherInfo);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "天気アプリ";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.wetherPicture)).EndInit();
             this.ResumeLayout(false);
