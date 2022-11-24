@@ -10,6 +10,14 @@ namespace WeatherApp {
         public string text { get; set; }
     }
 
+    public class RootobjectWeek {
+        public string publishingOffice { get; set; }
+        public DateTime reportDatetime { get; set; }
+        public string headTitle { get; set; }
+        public string text { get; set; }
+    }
+
+
 
 
     public class RootobjectAreaIcon {
