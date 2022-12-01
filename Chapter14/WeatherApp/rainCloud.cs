@@ -21,14 +21,14 @@ namespace WeatherApp {
                 Encoding = Encoding.UTF8
             };
             //雨雲レーダー
-            var rainCloudUrl = $"https://www.jma.go.jp/bosai/jmatile/data/nowc/targetTimes_N1.json";
+            var rainCloudUrl = $" https://www.jma.go.jp/bosai/jmatile/data/nowc/targetTimes_N2.json";
             var rcDString = wc.DownloadString(rainCloudUrl);
             var rcJson = JsonConvert.DeserializeObject<RainCloudMapClass1[]>(rcDString);
             var baseTime = rcJson[0].basetime.ToString();
             var validTime = rcJson[0].validtime.ToString();
 
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.ImageLocation = $"https://www.jma.go.jp/bosai/himawari/data/nowc/{baseTime}/none/{validTime}/surf/hrpns/{3}/{7}/{3}.png";
+            pictureBox1.ImageLocation = $"https://www.jma.go.jp/bosai/himawari/data/nowc/{baseTime}/none/{validTime}/surf/hrpns/10/7/3.png";
         }
 
         private void close_Click(object sender, EventArgs e) {
