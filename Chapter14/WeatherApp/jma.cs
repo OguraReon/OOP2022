@@ -2,6 +2,7 @@
 
 namespace WeatherApp {
 
+    //今日
     public class Rootobject {
         public string publishingOffice { get; set; }
         public DateTime reportDatetime { get; set; }
@@ -10,6 +11,7 @@ namespace WeatherApp {
         public string text { get; set; }
     }
 
+    //一週間
     public class RootobjectWeek {
         public string publishingOffice { get; set; }
         public DateTime reportDatetime { get; set; }
@@ -19,11 +21,12 @@ namespace WeatherApp {
 
 
 
-
+    //お天気マーク、一週間の情報
     public class RootobjectAreaIcon {
         public Class1[] Property1 { get; set; }
     }
 
+    //お天気マーク、一週間の情報
     public class Class1 {
         public string publishingOffice { get; set; }
         public DateTime reportDatetime { get; set; }
@@ -32,6 +35,7 @@ namespace WeatherApp {
         public Precipaverage precipAverage { get; set; }
     }
 
+    //お天気マーク、一週間の情報
     public class Tempaverage {
         public Area[] areas { get; set; }
     }
@@ -88,16 +92,30 @@ namespace WeatherApp {
         public string code { get; set; }
     }
 
-
+    //ひまわり　日本海付近
     public class RootobjectWetherMap {
         public Class1[] Property1 { get; set; }
     }
 
+    //ひまわり　日本海付近
     public class WetherMapClass1 {
         public string basetime { get; set; }
         public string validtime { get; set; }
     }
 
+
+
+    //雨雲レーダー
+    public class RootobjectRainCloudMap {
+        public Class1[] Property1 { get; set; }
+    }
+
+    //雨雲レーダー
+    public class RainCloudMapClass1 {
+        public string basetime { get; set; }
+        public string validtime { get; set; }
+        public string[] elements { get; set; }
+    }
 
 
 }

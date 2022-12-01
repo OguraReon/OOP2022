@@ -12,13 +12,15 @@ using System.Windows.Forms;
 
 
 namespace WeatherApp {
-    public partial class Form1 : Form {
+    public partial class WetherApp : Form {
         IDictionary<string, string> areas = areaCsvRead();
         List<string> dates = setListDates();
-        //private Form2 f2;
+        private hima f2;
+        private himaJp f3;
+        private rainCloud f4;
 
 
-        public Form1() {
+        public WetherApp() {
             InitializeComponent();
 
 
@@ -515,17 +517,21 @@ namespace WeatherApp {
             
         }
 
-        private void ひまわりToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void ひまわりToolStripMenuItem_Click(object sender, EventArgs e) {          
+            f2 = new hima();
+            f2.ShowDialog();
             
-            //f2 = new Form2();
-           
-            //f2.Show();
-            
-            
-           
-           
         }
-        
+
+        private void ひまわり日本ToolStripMenuItem_Click(object sender, EventArgs e) {
+            f3 = new himaJp();
+            f3.ShowDialog();
+        }
+
+        private void 雨雲レーダーToolStripMenuItem_Click(object sender, EventArgs e) {
+            f4 = new rainCloud();
+            f4.ShowDialog();
+        }
     }
 
     
