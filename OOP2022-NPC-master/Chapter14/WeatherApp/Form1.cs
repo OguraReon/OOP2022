@@ -15,7 +15,7 @@ namespace WeatherApp {
     public partial class Form1 : Form {
         IDictionary<string, string> areas = areaCsvRead();
         List<string> dates = setListDates();
-        private Form2 f2;
+        //private Form2 f2;
 
 
         public Form1() {
@@ -517,9 +517,9 @@ namespace WeatherApp {
 
         private void ひまわりToolStripMenuItem_Click(object sender, EventArgs e) {
             
-            f2 = new Form2();
+            //f2 = new Form2();
            
-            f2.Show();
+            //f2.Show();
             
             
            
