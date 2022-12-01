@@ -89,6 +89,15 @@ namespace WeatherApp {
     }
 
 
+    public class RootobjectWetherMap {
+        public Class1[] Property1 { get; set; }
+    }
+
+    public class WetherMapClass1 {
+        public string basetime { get; set; }
+        public string validtime { get; set; }
+    }
+
 
 
 }
