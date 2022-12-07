@@ -21,7 +21,7 @@ namespace WeatherApp {
                 Encoding = Encoding.UTF8
             };
             //雨雲レーダー
-            var rainCloudUrl = $" https://www.jma.go.jp/bosai/jmatile/data/nowc/targetTimes_N2.json";
+            var rainCloudUrl = $"https://www.jma.go.jp/bosai/jmatile/data/nowc/targetTimes_N2.json";
             var rcDString = wc.DownloadString(rainCloudUrl);
             var rcJson = JsonConvert.DeserializeObject<RainCloudMapClass1[]>(rcDString);
             var baseTime = rcJson[0].basetime.ToString();
